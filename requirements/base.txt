@@ -1,0 +1,8 @@
+# Bleeding edge Django
+django==1.8.3
+wheel==0.24.0
+
+# For the persistence stores
+psycopg2==2.6.1
+
+# Your custom requirements go here
