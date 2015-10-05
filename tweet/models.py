@@ -32,10 +32,11 @@ class Tweet(models.Model):
     retweeted_status = models.ForeignKey('Tweet', null=True, related_name='retweets')
 
     possibly_sensitive = models.NullBooleanField()
+    is_quote_status = models.BooleanField(default=False)
 
     contributors = HStoreField(null=True)
 
-    place = HStoreField(null=True)
+    place = models.ForeignKey("Place", null=True)
 
     coordinates = models.PointField(null=True)
     geo = models.PointField(null=True)
