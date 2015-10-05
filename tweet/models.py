@@ -108,7 +108,7 @@ class User(models.Model):
     profile_sidebar_fill_color = models.CharField(max_length=6)
     profile_text_color = models.CharField(max_length=6)
 
-    favorites_count = models.PositiveIntegerField()
+    favourites_count = models.PositiveIntegerField()
     followers_count = models.PositiveIntegerField()
     friends_count = models.PositiveIntegerField()
     listed_count = models.PositiveIntegerField()
