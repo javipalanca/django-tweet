@@ -25,11 +25,11 @@ class Tweet(models.Model):
     retweet_count = models.PositiveIntegerField()
     replies_count = models.PositiveIntegerField(null=True)
 
-    in_reply_to_status = models.ForeignKey('Tweet', null=True, related_name='replies')
+    in_reply_to_status = models.BigIntegerField('Replies', null=True)
     in_reply_to_user = models.ForeignKey('User', null=True, related_name='replies')
 
     favorites_users = models.ManyToManyField('User', related_name='favorites')
-    retweeted_status = models.ForeignKey('Tweet', null=True, related_name='retweets')
+    retweeted_status = models.BigIntegerField('Retweets', null=True)
 
     possibly_sensitive = models.NullBooleanField()
     is_quote_status = models.BooleanField(default=False)
@@ -68,7 +68,8 @@ class Place(models.Model):
     objects = models.GeoManager()
 
     def __unicode__(self):
-        return u'%s' % (self.name)
+        return u'%s' % self.name
+
 
 class User(models.Model):
 
