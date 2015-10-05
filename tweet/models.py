@@ -114,6 +114,8 @@ class User(models.Model):
     statuses_count = models.PositiveIntegerField()
     utc_offset = models.IntegerField(null=True)
 
+    entities = HStoreField(null=True)
+
     followers = models.ManyToManyField('User')
 
     def __unicode__(self):
