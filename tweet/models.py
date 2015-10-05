@@ -87,6 +87,7 @@ class User(models.Model):
     following = models.BooleanField(u'Following', default=False)
     geo_enabled = models.BooleanField(u'Geo enabled', default=False)
     is_translator = models.BooleanField(u'Is translator', default=False)
+    has_extended_profile = models.NullBooleanField(u'Has extended profile', default=False)
     notifications = models.BooleanField(u'Notifications', default=False)
     profile_use_background_image = models.BooleanField(u'Profile use background image', default=False)
     protected = models.BooleanField(u'Protected', default=False)
