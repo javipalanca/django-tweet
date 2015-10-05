@@ -67,6 +67,8 @@ class Place(models.Model):
 
     objects = models.GeoManager()
 
+    def __unicode__(self):
+        return u'%s' % (self.name)
 
 class User(models.Model):
 
@@ -119,6 +121,8 @@ class User(models.Model):
     entities = HStoreField(null=True)
 
     followers = models.ManyToManyField('User')
+
+    objects = models.GeoManager()
 
     def __unicode__(self):
         return self.name
