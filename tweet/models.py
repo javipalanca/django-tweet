@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 from django.contrib.gis.db import models
-from django.contrib.gis.db.models import PointField, PolygonField
 from django.contrib.postgres.fields import HStoreField
 
 
@@ -38,10 +37,12 @@ class Tweet(models.Model):
 
     place = HStoreField(null=True)
 
-    coordinates = PointField(null=True)
-    geo = PointField()
+    coordinates = models.PointField(null=True)
+    geo = models.PointField(null=True)
 
     entities = HStoreField(null=True)
+
+    objects = models.GeoManager()
 
     def __unicode__(self):
         return u'%s: %s' % (self.author, self.text)
@@ -57,10 +58,12 @@ class Place(models.Model):
     name = models.CharField(max_length=50)
     country = models.CharField(max_length=100)
     country_code = models.CharField(max_length=4)
-    bounding_box = PolygonField()
+    bounding_box = models.PolygonField()
     place_type = models.CharField(max_length=50)
     url = models.URLField()
     attributes = HStoreField(null=True)
+
+    objects = models.GeoManager()
 
 
 class User(models.Model):

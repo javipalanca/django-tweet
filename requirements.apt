@@ -15,6 +15,9 @@ virtualenvwrapper
 postgresql
 libpq-dev
 
+##PostGIS
+postgis
+
 # GDAL, GeoIP
 binutils
 libproj-dev
