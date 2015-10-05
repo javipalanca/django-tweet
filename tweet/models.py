@@ -62,6 +62,7 @@ class Place(models.Model):
     bounding_box = models.PolygonField()
     place_type = models.CharField(max_length=50)
     url = models.URLField()
+    contained_within = HStoreField(null=True)
     attributes = HStoreField(null=True)
 
     objects = models.GeoManager()
