@@ -33,6 +33,7 @@ class Tweet(models.Model):
 
     possibly_sensitive = models.NullBooleanField()
     is_quote_status = models.BooleanField(default=False)
+    quoted_status_id = models.BigIntegerField('Quoted', null=True)
 
     contributors = HStoreField(null=True)
 
