@@ -83,7 +83,7 @@ class User(models.Model):
     contributors_enabled = models.BooleanField(u'Contributors enabled', default=False)
     default_profile = models.BooleanField(u'Default profile', default=False)
     default_profile_image = models.BooleanField(u'Default profile image', default=False)
-    follow_request_sent = models.BooleanField(u'Follow request sent', default=False)
+    follow_request_sent = models.NullBooleanField(u'Follow request sent', default=False)
     following = models.BooleanField(u'Following', default=False)
     geo_enabled = models.BooleanField(u'Geo enabled', default=False)
     is_translator = models.BooleanField(u'Is translator', default=False)
