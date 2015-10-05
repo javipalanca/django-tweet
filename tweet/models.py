@@ -31,7 +31,7 @@ class Tweet(models.Model):
     favorites_users = models.ManyToManyField('User', related_name='favorites')
     retweeted_status = models.ForeignKey('Tweet', null=True, related_name='retweets')
 
-    possibly_sensitive = models.BooleanField(null=True)
+    possibly_sensitive = models.NullBooleanField()
 
     contributors = HStoreField(null=True)
 
