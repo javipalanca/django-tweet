@@ -16,7 +16,7 @@ class Tweet(models.Model):
     retweeted = models.BooleanField(default=False)
     truncated = models.BooleanField(default=False)
 
-    source = models.CharField(max_length=100)
+    source = models.CharField(max_length=300)
     source_url = models.URLField(null=True)
 
     lang = models.CharField(max_length=10)
@@ -58,7 +58,7 @@ class Place(models.Model):
     id = models.CharField(max_length=20, primary_key=True)
     full_name = models.CharField(max_length=200)
     name = models.CharField(max_length=50)
-    country = models.CharField(max_length=100)
+    country = models.CharField(max_length=200)
     country_code = models.CharField(max_length=4)
     bounding_box = models.PolygonField()
     place_type = models.CharField(max_length=50)
@@ -77,10 +77,10 @@ class User(models.Model):
     id = models.BigIntegerField(primary_key=True)
     screen_name = models.CharField(u'Screen name', max_length=50, unique=True)
 
-    name = models.CharField(u'Name', max_length=100)
+    name = models.CharField(u'Name', max_length=200)
     description = models.TextField(u'Description')
-    location = models.CharField(u'Location', max_length=100)
-    time_zone = models.CharField(u'Time zone', max_length=100, null=True)
+    location = models.CharField(u'Location', max_length=300)
+    time_zone = models.CharField(u'Time zone', max_length=200, null=True)
     lang = models.CharField(max_length=10)
 
     created_at = models.DateTimeField()
