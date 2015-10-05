@@ -26,7 +26,7 @@ class Tweet(models.Model):
     replies_count = models.PositiveIntegerField(null=True)
 
     in_reply_to_status = models.BigIntegerField('Replies', null=True)
-    in_reply_to_user = models.ForeignKey('User', null=True, related_name='replies')
+    in_reply_to_user = models.BigIntegerField('Replies', null=True)
 
     favorites_users = models.ManyToManyField('User', related_name='favorites')
     retweeted_status = models.BigIntegerField('Retweets', null=True)
