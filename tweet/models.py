@@ -4,7 +4,6 @@ from django.contrib.postgres.fields import HStoreField
 
 
 class Tweet(models.Model):
-
     id = models.BigIntegerField(primary_key=True)
     author = models.ForeignKey('User', related_name='tweets')
 
@@ -73,7 +72,6 @@ class Place(models.Model):
 
 
 class User(models.Model):
-
     id = models.BigIntegerField(primary_key=True)
     screen_name = models.CharField(u'Screen name', max_length=50, unique=True)
 
