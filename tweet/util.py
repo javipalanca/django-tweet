@@ -70,7 +70,8 @@ def parse_tweet(tweet):
     tweet["author"] = tweet["user"]["id"]
     del tweet["user"]
     del tweet["entities"]
-    tweet["place"] = tweet["place"]["id"]
+    if "place" in tweet:
+        tweet["place"] = tweet["place"]["id"]
     tweet["created_at"] = make_aware(tweet["created_at"]).isoformat()
     del tweet["id_str"]
     del tweet["metadata"]
