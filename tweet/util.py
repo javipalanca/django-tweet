@@ -1,3 +1,7 @@
+from django.utils.timezone import is_naive, make_aware
+from dateutil.parser import parse
+import datetime
+
 try:
     import cStringIO as StringIO
 except ImportError:
@@ -9,6 +13,18 @@ if six.PY3:
     unicode = str
 
 __author__ = 'jpalanca'
+
+
+class DateTimeEncoder(json.JSONEncoder):
+    def default(self, obj):
+        if isinstance(obj, datetime.datetime):
+            return obj.isoformat()
+        elif isinstance(obj, datetime.date):
+            return obj.isoformat()
+        elif isinstance(obj, datetime.timedelta):
+            return (datetime.datetime.min + obj).time().isoformat()
+        else:
+            return super(DateTimeEncoder, self).default(obj)
 
 
 def geojson_to_str(geojson_dict):
@@ -23,7 +39,17 @@ def geojson_to_str(geojson_dict):
     return str(result)
 
 
+def parse_date(dt):
+    dt = parse(dt)
+    if is_naive(dt):
+        return make_aware(dt).isoformat()
+    else:
+        return dt.isoformat()
+
+
 def parse_place(tweet):
+    if tweet["place"] is None:
+        return None
     place = tweet["place"]
     bb = place["bounding_box"]["coordinates"][0]
     # close polygon
@@ -48,6 +74,7 @@ def parse_place(tweet):
 
 def parse_user(tweet):
     user = tweet["user"]
+    user["created_at"] = parse_date(user["created_at"])
     del user["id_str"]
     del user["entities"]
     pre = [{
@@ -67,6 +94,7 @@ def parse_user(tweet):
 
 def parse_tweet(tweet):
     tweet["author"] = tweet["user"]["id"]
+    tweet["created_at"] = parse_date(tweet["created_at"])
     del tweet["user"]
     del tweet["entities"]
     try:
@@ -87,6 +115,17 @@ def parse_tweet(tweet):
     tweet["in_reply_to_status"] = tweet['in_reply_to_status_id']
     del tweet['in_reply_to_status_id']
     del tweet['in_reply_to_status_id_str']
+    try:
+        retweet_user = parse_user(tweet["retweeted_status"])
+        retweet_place = parse_place(tweet["retweeted_status"])
+        retweet = parse_tweet(tweet["retweeted_status"])
+        if retweet_place:
+            retweet_place.save()
+        retweet_user.save()
+        retweet.save()
+        tweet["retweeted_status"] = tweet["retweeted_status"]["id"]
+    except KeyError:
+        tweet["retweeted_status"] = None
     # prepare coordinates
     tweet["geo"] = geojson_to_str(tweet["geo"])
     tweet["coordinates"] = geojson_to_str(tweet["coordinates"])
