@@ -12,6 +12,8 @@ __author__ = 'jpalanca'
 
 
 def geojson_to_str(geojson_dict):
+    if geojson_dict is None:
+        return geojson_dict
     result = {}
     for k, v in geojson_dict.items():
         if isinstance(v, str) or isinstance(v, unicode):
