@@ -93,12 +93,15 @@ def parse_user(tweet):
 
 
 def parse_tweet(tweet):
+    elements = []
     tweet["author"] = tweet["user"]["id"]
+    elements.append(parse_user(tweet))
     tweet["created_at"] = parse_date(tweet["created_at"])
     del tweet["user"]
     del tweet["entities"]
     try:
         tweet["place"] = tweet["place"]["id"]
+        elements.append(parse_place(tweet))
     except TypeError:
         tweet["place"] = None
     del tweet["id_str"]
@@ -116,13 +119,8 @@ def parse_tweet(tweet):
     del tweet['in_reply_to_status_id']
     del tweet['in_reply_to_status_id_str']
     try:
-        retweet_user = parse_user(tweet["retweeted_status"])
-        retweet_place = parse_place(tweet["retweeted_status"])
         retweet = parse_tweet(tweet["retweeted_status"])
-        if retweet_place:
-            retweet_place.save()
-        retweet_user.save()
-        retweet.save()
+        elements += retweet
         tweet["retweeted_status"] = tweet["retweeted_status"]["id"]
     except KeyError:
         tweet["retweeted_status"] = None
@@ -141,4 +139,5 @@ def parse_tweet(tweet):
     from django.core import serializers
     for deserialized_object in serializers.deserialize("json", data):
         data.close()
-        return deserialized_object
+        elements.append(deserialized_object)
+        return elements
