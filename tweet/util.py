@@ -3,8 +3,6 @@ try:
 except ImportError:
     import StringIO
 import json
-from django.utils.timezone import make_aware
-
 import six
 
 if six.PY3:
@@ -49,7 +47,6 @@ def parse_place(tweet):
 def parse_user(tweet):
     user = tweet["user"]
     del user["id_str"]
-    user["created_at"] = make_aware(user["created_at"]).isoformat()
     del user["entities"]
     pre = [{
         "pk": user["id"],
@@ -74,7 +71,6 @@ def parse_tweet(tweet):
         tweet["place"] = tweet["place"]["id"]
     except TypeError:
         tweet["place"] = None
-    tweet["created_at"] = make_aware(tweet["created_at"]).isoformat()
     del tweet["id_str"]
     del tweet["metadata"]
     if "quoted_status" in tweet:
