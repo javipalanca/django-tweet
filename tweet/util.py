@@ -106,9 +106,6 @@ def parse_tweet(tweet):
         tweet["place"] = None
     del tweet["id_str"]
     del tweet["metadata"]
-    if "quoted_status" in tweet:
-        del tweet["quoted_status"]
-        del tweet["quoted_status_id_str"]
     # set in_reply_to_user
     tweet["in_reply_to_user"] = tweet['in_reply_to_user_id']
     del tweet['in_reply_to_user_id']
@@ -118,12 +115,22 @@ def parse_tweet(tweet):
     tweet["in_reply_to_status"] = tweet['in_reply_to_status_id']
     del tweet['in_reply_to_status_id']
     del tweet['in_reply_to_status_id_str']
+    # is retweet
     try:
         retweet = parse_tweet(tweet["retweeted_status"])
         elements += retweet
         tweet["retweeted_status"] = tweet["retweeted_status"]["id"]
     except KeyError:
         tweet["retweeted_status"] = None
+    # is quoted tweet
+    try:
+        quoted = parse_tweet(tweet["quoted_status"])
+        elements += quoted
+        tweet["quoted_status"] = tweet["quoted_status"]["id"]
+    except KeyError:
+        tweet["quoted_status"] = None
+    del tweet["quoted_status_id_str"]
+    del tweet["quoted_status_id"]
     # prepare coordinates
     tweet["geo"] = geojson_to_str(tweet["geo"])
     tweet["coordinates"] = geojson_to_str(tweet["coordinates"])
