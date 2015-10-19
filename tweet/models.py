@@ -18,7 +18,7 @@ class Tweet(models.Model):
     source = models.CharField(max_length=300)
     source_url = models.URLField(null=True)
 
-    lang = models.CharField(max_length=10)
+    lang = models.CharField(max_length=50)
 
     favorite_count = models.IntegerField(default=0, null=True)
     retweet_count = models.IntegerField(default=0, null=True)
@@ -54,7 +54,7 @@ class Tweet(models.Model):
 
 
 class Place(models.Model):
-    id = models.CharField(max_length=20, primary_key=True)
+    id = models.CharField(max_length=50, primary_key=True)
     full_name = models.CharField(max_length=200)
     name = models.CharField(max_length=50)
     country = models.CharField(max_length=200)
@@ -79,7 +79,7 @@ class User(models.Model):
     description = models.TextField(u'Description')
     location = models.CharField(u'Location', max_length=300)
     time_zone = models.CharField(u'Time zone', max_length=200, null=True)
-    lang = models.CharField(max_length=10)
+    lang = models.CharField(max_length=50)
 
     created_at = models.DateTimeField()
 
