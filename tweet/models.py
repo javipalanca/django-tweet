@@ -20,9 +20,9 @@ class Tweet(models.Model):
 
     lang = models.CharField(max_length=10)
 
-    favorite_count = models.PositiveIntegerField(default=0, null=True)
-    retweet_count = models.PositiveIntegerField(default=0, null=True)
-    replies_count = models.PositiveIntegerField(default=0, null=True)
+    favorite_count = models.IntegerField(default=0, null=True)
+    retweet_count = models.IntegerField(default=0, null=True)
+    replies_count = models.IntegerField(default=0, null=True)
 
     in_reply_to_status = models.BigIntegerField('Replies', null=True)
     in_reply_to_user = models.BigIntegerField('Replies', null=True)
@@ -111,11 +111,11 @@ class User(models.Model):
     profile_sidebar_fill_color = models.CharField(max_length=6)
     profile_text_color = models.CharField(max_length=6)
 
-    favourites_count = models.PositiveIntegerField(default=0, null=True)
-    followers_count = models.PositiveIntegerField(default=0, null=True)
-    friends_count = models.PositiveIntegerField(default=0, null=True)
-    listed_count = models.PositiveIntegerField(default=0, null=True)
-    statuses_count = models.PositiveIntegerField(default=0, null=True)
+    favourites_count = models.IntegerField(default=0, null=True)
+    followers_count = models.IntegerField(default=0, null=True)
+    friends_count = models.IntegerField(default=0, null=True)
+    listed_count = models.IntegerField(default=0, null=True)
+    statuses_count = models.IntegerField(default=0, null=True)
     utc_offset = models.IntegerField(null=True)
 
     entities = HStoreField(null=True)
