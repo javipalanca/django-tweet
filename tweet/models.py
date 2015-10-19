@@ -111,11 +111,11 @@ class User(models.Model):
     profile_sidebar_fill_color = models.CharField(max_length=6)
     profile_text_color = models.CharField(max_length=6)
 
-    favourites_count = models.PositiveIntegerField()
-    followers_count = models.PositiveIntegerField()
-    friends_count = models.PositiveIntegerField()
-    listed_count = models.PositiveIntegerField()
-    statuses_count = models.PositiveIntegerField()
+    favourites_count = models.PositiveIntegerField(default=0)
+    followers_count = models.PositiveIntegerField(default=0)
+    friends_count = models.PositiveIntegerField(default=0)
+    listed_count = models.PositiveIntegerField(default=0)
+    statuses_count = models.PositiveIntegerField(default=0)
     utc_offset = models.IntegerField(null=True)
 
     entities = HStoreField(null=True)
