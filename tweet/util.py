@@ -129,8 +129,10 @@ def parse_tweet(tweet):
         tweet["quoted_status"] = tweet["quoted_status"]["id"]
     except KeyError:
         tweet["quoted_status"] = None
-    del tweet["quoted_status_id_str"]
-    del tweet["quoted_status_id"]
+    if "quoted_status_id_str" in tweet:
+        del tweet["quoted_status_id_str"]
+    if "quoted_status_id" in tweet:
+        del tweet["quoted_status_id"]
     # prepare coordinates
     tweet["geo"] = geojson_to_str(tweet["geo"])
     tweet["coordinates"] = geojson_to_str(tweet["coordinates"])
