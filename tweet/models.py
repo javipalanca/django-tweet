@@ -118,6 +118,8 @@ class User(models.Model):
     statuses_count = models.IntegerField(default=0, null=True)
     utc_offset = models.IntegerField(null=True)
 
+    withheld_in_countries = models.CharField(max_length=100)
+    withheld_scope = models.CharField(max_length=100)
     entities = HStoreField(null=True)
 
     followers = models.ManyToManyField('User')
