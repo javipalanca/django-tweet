@@ -42,6 +42,7 @@ class Tweet(models.Model):
     geo = models.PointField(null=True)
 
     entities = HStoreField(null=True)
+    scopes = HStoreField(null=True)
 
     objects = models.GeoManager()
 
