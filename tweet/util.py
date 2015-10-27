@@ -77,6 +77,8 @@ def parse_user(tweet):
     user["created_at"] = parse_date(user["created_at"])
     del user["id_str"]
     del user["entities"]
+    if "profile_location" in user:
+        del user["profile_location"]
     pre = [{
         "pk": user["id"],
         "model": "tweet.User",
