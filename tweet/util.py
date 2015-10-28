@@ -101,8 +101,9 @@ def parse_tweet(tweet):
     tweet["created_at"] = parse_date(tweet["created_at"])
     del tweet["user"]
     del tweet["entities"]
-    if "scopes" in tweet:
-        del tweet["scopes"]
+    for skip in ["scopes", "withheld_in_countries", "withheld_scope"]:
+        if skip in tweet:
+            del tweet[skip]
     try:
         tweet["place"] = tweet["place"]["id"]
         elements.append(parse_place(tweet))
